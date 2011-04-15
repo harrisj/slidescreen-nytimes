@@ -1,0 +1,10 @@
+bin/
+gen/
+.DS_Store
+.classpath
+*local.properties
+*.tmproj
+*proguard
+*.keystore
+*.iws
+

@@ -1,0 +1,3 @@
+[submodule "plugin-base"]
+	path = plugin-base
+	url = git://github.com/megamattron/SlideScreenPlugins.git
