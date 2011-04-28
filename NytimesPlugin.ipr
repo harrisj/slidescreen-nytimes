@@ -321,7 +321,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NytimesPlugin.iml" filepath="$PROJECT_DIR$/NytimesPlugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../pluginbase/pluginbase.iml" filepath="$PROJECT_DIR$/../pluginbase/pluginbase.iml" />
     </modules>
   </component>
   <component name="ProjectResources">

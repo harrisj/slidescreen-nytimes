@@ -1,82 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="nytimesplugin" default="help">
+<project name="slidescreennytimes" default="help">
 
-    <!-- The local.properties file is created and updated by the 'android' tool.
-         It contains the path to the SDK. It should *NOT* be checked in in Version
-         Control Systems. -->
-    <property file="local.properties"/>
+<!-- The local.properties file is created and updated by the 'android'
+     tool.
+     It contains the path to the SDK. It should *NOT* be checked into
+     Version Control Systems. -->
+    <property file="local.properties" />
+    
+    <!-- include the system environment variables. -->
+    <property environment="env" />
 
     <!-- The build.properties file can be created by you and is never touched
-         by the 'android' tool. This is the place to change some of the default property values
-         used by the Ant rules.
+         by the 'android' tool. This is the place to change some of the
+         default property values used by the Ant rules.
          Here are some properties you may want to change/update:
 
-         application.package
-             the name of your application package as defined in the manifest. Used by the
-             'uninstall' rule.
          source.dir
-             the name of the source directory. Default is 'src'.
+             The name of the source directory. Default is 'src'.
          out.dir
-             the name of the output directory. Default is 'bin'.
+             The name of the output directory. Default is 'bin'.
 
-         Properties related to the SDK location or the project target should be updated
-          using the 'android' tool with the 'update' action.
+         Properties related to the SDK location or the project target should
+         be updated using the 'android' tool with the 'update' action.
 
-         This file is an integral part of the build system for your application and
-         should be checked in in Version Control Systems.
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems.
 
          -->
-    <property file="build.properties"/>
+    <property file="build.properties" />
 
-    <!-- The default.properties file is created and updated by the 'android' tool, as well
-         as ADT.
-         This file is an integral part of the build system for your application and
-         should be checked in in Version Control Systems. -->
-    <property file="default.properties"/>
+    <!-- The default.properties file is created and updated by the 'android'
+         tool, as well as ADT.
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems. -->
+    <property file="default.properties" />
 
-    <!-- Custom Android task to deal with the project target, and import the proper rules.
+    <!-- debug signing -->
+    <property name="key.store.debug" value="${env.HOME}/.android/debug.keystore" />
+    <property name="key.alias.debug" value="androiddebugkey" />
+    <property name="key.alias.password.debug" value="android" />
+    <property name="key.store.password.debug" value="android" />
+    
+    <!-- Custom Android task to deal with the project target, and import the
+         proper rules.
          This requires ant 1.6.0 or above. -->
     <path id="android.antlibs">
-        <pathelement path="${sdk.dir}/tools/lib/anttasks.jar"/>
-        <pathelement path="${sdk.dir}/tools/lib/sdklib.jar"/>
-        <pathelement path="${sdk.dir}/tools/lib/androidprefs.jar"/>
-        <pathelement path="${sdk.dir}/tools/lib/apkbuilder.jar"/>
-        <pathelement path="${sdk.dir}/tools/lib/jarutils.jar"/>
+        <pathelement path="${sdk.dir}/tools/lib/anttasks.jar" />
+        <pathelement path="${sdk.dir}/tools/lib/sdklib.jar" />
+        <pathelement path="${sdk.dir}/tools/lib/androidprefs.jar" />
     </path>
 
     <taskdef name="setup"
-             classname="com.android.ant.SetupTask"
-             classpathref="android.antlibs"/>
+        classname="com.android.ant.SetupTask"
+        classpathref="android.antlibs" />
+      
+    
+<!-- extension targets. Uncomment the ones where you want to do custom work
+     in between standard targets -->
+<!--
+    <target name="-pre-build">
+    </target>
+    <target name="-pre-compile">
+    </target>
 
-    <!-- Execute the Android Setup task that will setup some properties specific to the target,
-         and import the build rules files.
+    [This is typically used for code obfuscation.
+     Compiled code location: ${out.classes.absolute.dir}
+     If this is not done in place, override ${out.dex.input.absolute.dir}]
+    <target name="-post-compile">
+    </target>
+-->
+
+
+    <!-- Execute the Android Setup task that will setup some properties
+         specific to the target, and import the build rules files.
 
          The rules file is imported from
-            <SDK>/platforms/<target_platform>/templates/android_rules.xml
+            <SDK>/platforms/<target_platform>/ant/ant_rules_r#.xml
 
-         To customize some build steps for your project:
-         - copy the content of the main node <project> from android_rules.xml
-         - paste it in this build.xml below the <setup /> task.
-         - disable the import by changing the setup task below to <setup import="false" />
-
-         This will ensure that the properties are setup correctly but that your customized
-         build steps are used.
+         To customize existing targets, there are two options:
+         - Customize only one target:
+             - copy/paste the target into this file, *before* the
+               <setup> task.
+             - customize it to your needs.
+         - Customize the whole script.
+             - copy/paste the content of the rules files (minus the top node)
+               into this file, *after* the <setup> task
+             - disable the import of the rules by changing the setup task
+               below to <setup import="false" />.
+             - customize to your needs.
     -->
-    <setup/>
+    
+    <property name="out.dir" value="bin" />
+    <property name="out.absolute.dir" location="${out.dir}" />
+    
+    <!-- The final package file to generate -->
+    <property name="out.debug.unaligned.package"
+                  location="${out.absolute.dir}/${ant.project.name}-debug-unaligned.apk" />
+    <property name="out.debug.package"
+                  location="${out.absolute.dir}/${ant.project.name}-debug.apk" />
+    <property name="out.unsigned.package"
+                  location="${out.absolute.dir}/${ant.project.name}-unsigned.apk" />
+    <property name="out.unaligned.package"
+                  location="${out.absolute.dir}/${ant.project.name}-unaligned.apk" />
+    <property name="out.release.package"
+                  location="${out.absolute.dir}/${ant.project.name}-release.apk" />
+    
+    <!-- Builds debug output package, provided all the necessary files are already dexed -->
+    <target name="debug" depends="-compile-tested-if-test, -package-debug-sign"
+                description="Builds the application and signs it with a debug key.">
+        
+        <!-- Signs the APK -->
+        <echo>Signing debug apk...</echo>
+        <signjar
+                jar="${out.debug.unaligned.package}"
+                signedjar="${out.debug.unaligned.package}"
+                keystore="${key.store.debug}"
+                storepass="${key.store.password.debug}"
+                alias="${key.alias.debug}"
+                keypass="${key.alias.password.debug}"
+                verbose="${verbose}" />
+                
+        <zipalign-helper in.package="${out.debug.unaligned.package}"
+                                   out.package="${out.debug.package}" />
+                                   
+        <echo>Debug Package: ${out.debug.package}</echo>
+    </target>
+    
+    <target name="-release-check">
+        <condition property="release.sign">
+            <and>
+                <isset property="key.store" />
+                <isset property="key.alias" />
+            </and>
+        </condition>
+    </target>
+    
+    <target name="-release-nosign" depends="-release-check" unless="release.sign">
+        <echo>No key.store and key.alias properties found in build.properties.</echo>
+        <echo>Please sign ${out.unsigned.package} manually</echo>
+        <echo>and run zipalign from the Android SDK tools.</echo>
+    </target>
+    
+    <target name="release" depends="-package-release, -release-nosign" if="release.sign"
+                description="Builds the application. The generated apk file must be signed before
+                            it is published.">
+        
+        <!-- Gets passwords -->
+        <input
+                message="Please enter keystore password (store:${key.store}):"
+                addproperty="key.store.password" />
+        <input
+                message="Please enter password for alias '${key.alias}':"
+                addproperty="key.alias.password" />
 
-    <!-- START OUR OWN BUILD DIRECTIVES -->
-    <target name="bundle" depends="scrub,install" description="Make debug APK."/>
-    <target name="deploy" depends="scrub,release" description="Make release APK."/>
-    <target name="scrub" description="Cleans bin dir.">
-        <delete dir="bin"/>
+        <!-- Signs the APK -->
+        <echo>Signing final apk...</echo>
+        <signjar
+                jar="${out.unsigned.package}"
+                signedjar="${out.unaligned.package}"
+                keystore="${key.store}"
+                storepass="${key.store.password}"
+                alias="${key.alias}"
+                keypass="${key.alias.password}"
+                verbose="${verbose}" />
+
+        <!-- Zip aligns the APK -->
+        <zipalign-helper in.package="${out.unaligned.package}"
+                                   out.package="${out.release.package}" />
+        <echo>Release Package: ${out.release.package}</echo>
     </target>
-    <target name="uninstall" description="Uninstall the app.">
-        <exec executable="${sdk.dir}/platform-tools/adb">
-            <arg value="uninstall"/>
-            <arg value="com.larvalabs.googlevoiceplugin"/>
-        </exec>
-    </target>
-    <target name="buildapk" depends="scrub, release" description="Build APK."/>
-    <!-- END OUR OWN BUILD DIRECTIVES -->
+    
+    <setup />
 
 </project>

@@ -1,4 +1,4 @@
-package com.nytimes.slidescreenplugin;
+package com.nytimes.slidescreen;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -21,7 +21,7 @@ public class TestActivity extends Activity {
             protected Object doInBackground(Object... params) {
                 // Trigger content provider as a test
                 String[] columns = new String[]{"_ID"};
-                Cursor cursor = getContentResolver().query(NytimesSlideScreenContentProvider.CONTENT_URI, null, null, null, null);
+                Cursor cursor = getContentResolver().query(NytimesContentProvider.CONTENT_URI, null, null, null, null);
 
                 return null;
             }

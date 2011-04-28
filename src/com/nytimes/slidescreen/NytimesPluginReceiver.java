@@ -1,17 +1,19 @@
-package com.nytimes.slidescreenplugin;
+package com.nytimes.slidescreen;
 
 import android.content.ComponentName;
 import android.content.Intent;
-import android.graphics.*;
+import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
+
 import com.larvalabs.slidescreen.PluginReceiver;
+import com.nytimes.slidescreen.R;
 
 /**
- * @author John Watkinson
+ * @author Jacob Harris
  */
-public class NytimesSlideScreenPluginReceiver extends PluginReceiver {
-    private static final String TAG = NytimesSlideScreenPluginReceiver.class.getSimpleName();
+public class NytimesPluginReceiver extends PluginReceiver {
+    private static final String TAG = NytimesPluginReceiver.class.getSimpleName();
 
     @Override
     public int getColor() {
@@ -20,7 +22,7 @@ public class NytimesSlideScreenPluginReceiver extends PluginReceiver {
 
     @Override
     public Uri getContentProviderURI() {
-        return NytimesSlideScreenPluginReceiver.CONTENT_URI;
+        return NytimesContentProvider.CONTENT_URI;
     }
 
     @Override
@@ -35,11 +37,11 @@ public class NytimesSlideScreenPluginReceiver extends PluginReceiver {
 
     @Override
     public Intent[] getSingleTapShortcutIntents() {
-        Intent[] intents = new Intent[2];
-        Intent groupIntent = new Intent(Intent.ACTION_MAIN);
-        groupIntent.setComponent(new ComponentName("com.nytimes"));
-        intents[0] = groupIntent;
-        intents[1] = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.nytimes.com"));
+        Intent[] intents = new Intent[1];
+//        Intent groupIntent = new Intent(Intent.ACTION_MAIN);
+//        groupIntent.setComponent(new ComponentName("com.nytimes"));
+//        intents[0] = groupIntent;
+        intents[0] = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.nytimes.com"));
         return intents;
     }
 
@@ -47,11 +49,11 @@ public class NytimesSlideScreenPluginReceiver extends PluginReceiver {
     @Override
     public Intent[] getLongpressShortcutIntents() {
         // Note this is the same as the short press intents right now, will hopefully replace later
-        Intent[] intents = new Intent[2];
-        Intent groupIntent = new Intent(Intent.ACTION_MAIN);
-        groupIntent.setComponent(new ComponentName("com.nytimes"));
-        intents[0] = groupIntent;
-        intents[1] = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.nytimes.com"));
+        Intent[] intents = new Intent[1];
+//        Intent groupIntent = new Intent(Intent.ACTION_MAIN);
+//        groupIntent.setComponent(new ComponentName("com.nytimes"));
+//        intents[0] = groupIntent;
+        intents[0] = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.nytimes.com"));
         return intents;
     }
 
