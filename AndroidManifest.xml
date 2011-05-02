@@ -7,6 +7,7 @@
     <uses-sdk android:minSdkVersion="1" android:targetSdkVersion="7"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <supports-screens android:smallScreens="true"
         android:normalScreens="true" android:largeScreens="true"
@@ -25,7 +26,7 @@
 
 
         <activity android:name="TestActivity"
-                  android:label="GV Test">
+                  android:label="NYT Slidescreen Test">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

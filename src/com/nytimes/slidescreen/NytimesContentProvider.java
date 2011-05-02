@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import com.larvalabs.slidescreen.PluginUtils;
 import com.larvalabs.slidescreen.PluginConstants;
+import android.os.Bundle;
+import android.content.res.Resources;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -25,6 +27,7 @@ import org.apache.http.protocol.HTTP;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -68,50 +71,109 @@ public class NytimesContentProvider extends ContentProvider {
         DefaultHttpClient client = new DefaultHttpClient();
         HttpResponse httpResp = null;
         String response = null;
+        boolean requestError = false;
+        int statusCode = HttpStatus.SC_OK;
         
         try {
           HttpGet get = new HttpGet(NYT_JSON_URL);
           httpResp = client.execute(get);
           
-          int statusCode = httpResp.getStatusLine().getStatusCode();
-          
+          statusCode = httpResp.getStatusLine().getStatusCode();
+           
           StringBuilder sb = new StringBuilder();
           BufferedReader r = new BufferedReader(new InputStreamReader(httpResp.getEntity().getContent()), 1000);
+           
           
+          //InputStream instream = getContext().getResources().openRawResource(R.raw.nytimestest);
+          //BufferedReader r = new BufferedReader(new InputStreamReader(instream), 1000);
+
           for (String line = r.readLine(); line != null; line = r.readLine()) {
               sb.append(line);
           }
           
           response = sb.toString();
-//          if (statusCode != HttpStatus.SC_OK) {
-//              throw new HttpResponseException(statusCode, response);
-//          }
+
+          if (statusCode != HttpStatus.SC_OK) {
+            Log.e(LOG_TAG, "Status " + statusCode + " returned from HTTP request");
+            requestError = true;
+          }
         } catch (ClientProtocolException e) {
           Log.e(LOG_TAG, "Client protocol exception: " + e.toString());
+          requestError = true;
         } catch (IOException e) {
           Log.e(LOG_TAG, "IO exception: " + e.toString());
+          requestError = true;
         } finally {
           if (client != null) {
               client.getConnectionManager().shutdown();
           }
         }
 
+        if (requestError) {
+          return null;
+        }
+        
+        Log.d(LOG_TAG, "FILE RETRIEVED");
+
         MatrixCursor cursor = new MatrixCursor(PluginConstants.FIELDS_ARRAY);
+        Bundle extras;
+        Intent intent;
         
         try {
-          JSONObject obj = new JSONObject(response).getJSONObject("data");
+          JSONObject obj = new JSONObject(response);
           JSONArray arr = obj.getJSONArray("items");
           int size = arr.length();
+          
+          Log.d(LOG_TAG, "Number of items: " + size);
               
-          SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
-          TimeZone tz = TimeZone.getDefault();
-            
+          SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z");
+          format.setLenient(true);
+                      
           for (int i = 0; i < size; i++) {
             JSONObject item = arr.getJSONObject(i);
+            extras = new Bundle();
+            intent = new Intent(Intent.ACTION_MAIN);
+            intent.setComponent(new ComponentName("com.nytimes.slidescreen", 
+                    "com.nytimes.slidescreen.DetailActivity"));
                 
-            MatrixCursor.RowBuilder builder = cursor.newRow();
-                                
             Date published = format.parse(item.getString("pubdate"));
+          
+            /* build intent for details. */
+            extras.putString("id", item.getString("guid"));
+            extras.putString("title", item.getString("title"));
+            extras.putString("description", item.getString("description"));
+            extras.putLong("published", published.getTime());
+            extras.putString("link", item.getString("link"));
+            extras.putString("byline", item.getString("byline"));
+            
+            Log.d(LOG_TAG, "Title: " + item.getString("title"));
+            Log.d(LOG_TAG, "Link: " + item.getString("link"));
+            
+            if (item.has("media")) {
+              JSONArray photos = item.getJSONArray("media");
+            
+              int numPhotos = photos.length();
+              ArrayList<String> images = new ArrayList<String>();
+                  
+              Log.d(LOG_TAG, "Number of photos: " + numPhotos);
+
+              for (int j = 0; j < numPhotos; j++) {
+                JSONObject photo = photos.getJSONObject(j);
+                      
+                if (photo.getString("type").equals("image")) {
+                  images.add(photo.getJSONArray("media-metadata").getJSONObject(0).getString("url"));
+                }
+              }
+
+              if (!images.isEmpty()) {
+                String[] p = new String[images.size()];
+                extras.putStringArray("photos", images.toArray(p));
+              }
+            }
+                        
+            intent.putExtras(extras);   
+           
+            MatrixCursor.RowBuilder builder = cursor.newRow();
             
             for (String field : fields) {
                 if (FIELD_ID.equals(field)) {
@@ -119,16 +181,18 @@ public class NytimesContentProvider extends ContentProvider {
                 } else if (FIELD_TITLE.equals(field)) {
                     builder.add("" + item.getString("title"));
                 } else if (FIELD_LABEL.equals(field)) {
-                    builder.add("LABEL");
+                    builder.add("");
                 } else if (FIELD_TEXT.equals(field)) {
                     builder.add("" + item.getString("description"));
                 } else if (FIELD_DATE.equals(field)) {
-                    builder.add(published.getTime() + tz.getRawOffset() + tz.getDSTSavings());
+                    builder.add(published.getTime());
                 } else if (FIELD_PRIORITY.equals(field)) {
-                    builder.add(published.getTime() + tz.getRawOffset() + tz.getDSTSavings());
+                    builder.add(published.getTime());
                 } else if (FIELD_INTENT.equals(field)) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getString("url")));
-                    builder.add(PluginUtils.encodeIntents(intent));
+                    Intent intents[] = new Intent[2];
+                    intents[0] = intent;
+                    intents[1] = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getString("link")));
+                    builder.add(PluginUtils.encodeIntents(intents));
                 } else {
                     builder.add("");
                 }
@@ -140,7 +204,7 @@ public class NytimesContentProvider extends ContentProvider {
         } catch (JSONException e) {
             Log.e(LOG_TAG, "JSON Parse error: " + e.toString());
         } catch (ParseException e) {
-            Log.e(LOG_TAG, "Date Parse error: " + e.toString());
+            Log.e(LOG_TAG, "Date Parse error: [" + e.toString() + "]");
         }
         
         return cursor;
