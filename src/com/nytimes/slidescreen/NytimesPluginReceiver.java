@@ -17,7 +17,7 @@ public class NytimesPluginReceiver extends PluginReceiver {
 
     @Override
     public int getColor() {
-        return Color.rgb(255, 255, 255);
+        return Color.rgb(0, 0, 255);
     }
 
     @Override
