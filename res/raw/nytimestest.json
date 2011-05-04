@@ -1,0 +1,212 @@
+{
+   "status" : "ok",
+   "title" : "NYT > Home Page",
+   "link" : "http://www.nytimes.com/pages/index.html",
+   "language" : "en-us",
+   "copyright" : "Copyright 2011\n The New York Times Company",
+   "lastBuildDate" : "Thu, 21 Apr 2011 00:09:06 GMT\n",
+   "items" : [
+      {
+         "title" : "War in Libya Could Drag On, Military Analysts Say",
+         "link" : "http://www.nytimes.com/2011/04/21/world/africa/21nato.html",
+         "guid" : "http://www.nytimes.com/2011/04/21/world/africa/21nato.html",
+         "description" : "France and Italy said that they would, like Britain, send liaison officers to Libya, in what analysts said was a sign that there would be no quick and easy end to the war.",
+         "byline" : "By STEVEN ERLANGER",
+         "pubdate" : "Wed, 20 Apr 2011 23:30:31 GMT"
+      },
+      {
+         "title" : "‘Restrepo’ Director and a Photographer Killed in Libya",
+         "link" : "http://www.nytimes.com/2011/04/21/world/africa/21photographers.html",
+         "guid" : "http://www.nytimes.com/2011/04/21/world/africa/21photographers.html",
+         "description" : "Tim Hetherington, the photographer who was a director and producer of the film “Restrepo,” and Chris Hondros of the Getty photo agency came under fire on the front lines of Misurata.",
+         "byline" : "By C. J. CHIVERS",
+         "pubdate" : "Thu, 21 Apr 2011 00:07:35 GMT",
+         "media" : [
+            {
+               "type" : "image",
+               "caption" : "Tim Hetherington in 2008.<br />",
+               "credit" : "Eddy Risch/European Pressphoto Agency",
+               "media-metadata" : [
+                  {
+                     "url" : "http://graphics8.nytimes.com/images/2011/04/21/world/21photographers/21photographers-thumbStandard.jpg",
+                     "height" : "75",
+                     "width" : "75"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "title" : "Baseball Takes Over Control of Los Angeles Dodgers",
+         "link" : "http://www.nytimes.com/2011/04/21/sports/baseball/21dodgers.html",
+         "guid" : "http://www.nytimes.com/2011/04/21/sports/baseball/21dodgers.html",
+         "description" : "Commissioner Bud Selig said he would appoint someone to oversee operations of the team because of “deep concerns.”",
+         "byline" : "By MICHAEL S. SCHMIDT and RICHARD SANDOMIR",
+         "pubdate" : "Wed, 20 Apr 2011 22:47:53 GMT",
+         "media" : [
+            {
+               "type" : "image",
+               "caption" : "Frank McCourt, the owner of the Los Angeles Dodgers, has burdened the once prestigious franchise with more than $400 million in debt.",
+               "credit" : "Mario Anzuoni/Reuters",
+               "media-metadata" : [
+                  {
+                     "url" : "http://graphics8.nytimes.com/images/2011/04/21/sports/21dodgerscnd_337/21dodgerscnd_337-thumbStandard.jpg",
+                     "height" : "75",
+                     "width" : "75"
+                  }
+               ]
+            },
+            {
+               "type" : "image",
+               "caption" : "Los Angeles Dodgers owner Frank McCourt spoke at a news conference in Los Angeles last week.",
+               "credit" : "Kevork Djansezian/Getty Images",
+               "media-metadata" : [
+                  {
+                     "url" : "http://graphics8.nytimes.com/images/2011/04/21/sports/21dodgers2_395-inline/21dodgers2_395-inline-thumbStandard.jpg",
+                     "height" : "75",
+                     "width" : "75"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "title" : "Audience Up, ‘Idol’ Defies TV Gravity",
+         "link" : "http://www.nytimes.com/2011/04/21/arts/television/american-idol-ratings-uptick-suggests-staying-power.html",
+         "guid" : "http://www.nytimes.com/2011/04/21/arts/television/american-idol-ratings-uptick-suggests-staying-power.html",
+         "description" : "A slight uptick in the ratings for “American Idol” reverses a trend and makes the show look increasingly like a cultural fixture.",
+         "byline" : "By BRIAN STELTER",
+         "pubdate" : "Wed, 20 Apr 2011 22:00:15 GMT",
+         "media" : [
+            {
+               "type" : "image",
+               "caption" : "Jennifer Lopez",
+               "credit" : "Michael Becker/Fox",
+               "media-metadata" : [
+                  {
+                     "url" : "http://graphics8.nytimes.com/images/2011/04/21/arts/Idol/Idol-thumbStandard.jpg",
+                     "height" : "75",
+                     "width" : "75"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "title" : "Taliban Fan Fears of Infiltration in Afghan Forces",
+         "link" : "http://www.nytimes.com/2011/04/21/world/asia/21afghanistan.html",
+         "guid" : "http://www.nytimes.com/2011/04/21/world/asia/21afghanistan.html",
+         "description" : "Deadly strikes have raised concerns among officials about enemy insurgents in police and military units.",
+         "byline" : "By RAY RIVERA",
+         "pubdate" : "Thu, 21 Apr 2011 00:08:54 GMT"
+      },
+      {
+         "title" : "Bits: Some iPhones Found to Store Users’ Locations",
+         "link" : "http://bits.blogs.nytimes.com/2011/04/20/3g-apple-ios-devices-secretly-storing-users-location/",
+         "guid" : "http://bits.blogs.nytimes.com/2011/04/20/3g-apple-ios-devices-secretly-storing-users-location/",
+         "description" : "A file was discovered on the Apple iPhone and 3G iPad that stores the device’s location data.",
+         "byline" : "By NICK BILTON",
+         "pubdate" : "Wed, 20 Apr 2011 22:29:27 GMT"
+      },
+      {
+         "title" : "Museums Are Finding Room for Couturiers",
+         "link" : "http://www.nytimes.com/2011/04/21/fashion/21MUSEUMS.html",
+         "guid" : "http://www.nytimes.com/2011/04/21/fashion/21MUSEUMS.html",
+         "description" : "Behind the move lie fierce disagreements on what is art and what is not, and whose checks are acceptable.",
+         "byline" : "By GERALDINE FABRIKANT",
+         "pubdate" : "Wed, 20 Apr 2011 23:48:03 GMT",
+         "media" : [
+            {
+               "type" : "image",
+               "caption" : "Roberto Capucci at the Philadelphia Museum of Art.",
+               "credit" : "Ryan Collerd for The New York Times",
+               "media-metadata" : [
+                  {
+                     "url" : "http://graphics8.nytimes.com/images/2011/04/21/fashion/21MUSEUMS-span/21MUSEUMS-span-thumbStandard-v2.jpg",
+                     "height" : "75",
+                     "width" : "75"
+                  }
+               ]
+            },
+            {
+               "type" : "image",
+               "caption" : "Roberto Capucci at the Philadelphia Museum of Art.",
+               "credit" : "Ryan Collerd for The New York Times",
+               "media-metadata" : [
+                  {
+                     "url" : "http://graphics8.nytimes.com/images/2011/04/21/fashion/21MUSEUMS-B/21MUSEUMS-B-thumbStandard.jpg",
+                     "height" : "75",
+                     "width" : "75"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "title" : "For Threats of Terrorism, Two Words Will Warn",
+         "link" : "http://www.nytimes.com/2011/04/21/us/21alert.html",
+         "guid" : "http://www.nytimes.com/2011/04/21/us/21alert.html",
+         "description" : "A green-to-red system implemented in 2002 is replaced by a program that means to convey more information about threats.",
+         "byline" : "By COLIN MOYNIHAN",
+         "pubdate" : "Thu, 21 Apr 2011 00:08:54 GMT",
+         "media" : [
+            {
+               "type" : "image",
+               "caption" : "Janet Napolitano.",
+               "credit" : "Michael Appleton for The New York Times",
+               "media-metadata" : [
+                  {
+                     "url" : "http://graphics8.nytimes.com/images/2011/04/21/us/ALERT/ALERT-thumbStandard.jpg",
+                     "height" : "75",
+                     "width" : "75"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "title" : "A Bonanza for All Precious Metals",
+         "link" : "http://www.nytimes.com/2011/04/21/business/global/21gold.html",
+         "guid" : "http://www.nytimes.com/2011/04/21/business/global/21gold.html",
+         "description" : "Platinum and palladium prices have risen, too, as investors seek safety from the European debt crisis, global inflation and turmoil in the Middle East and North Africa.",
+         "byline" : "By MATTHEW SALTMARSH",
+         "pubdate" : "Wed, 20 Apr 2011 22:00:02 GMT",
+         "media" : [
+            {
+               "type" : "image",
+               "caption" : "Gold jewelry on display in the jewelry district in New York. The contract for May delivery of gold in New York was quoted at $1,502.50 an ounce on Wednesday.<br />",
+               "credit" : "Spencer Platt/Getty Images",
+               "media-metadata" : [
+                  {
+                     "url" : "http://graphics8.nytimes.com/images/2011/04/21/business/global/21gold-span/21gold-span-thumbStandard.jpg",
+                     "height" : "75",
+                     "width" : "75"
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "title" : "Magazine Preview: Obama’s Young Mother Abroad",
+         "link" : "http://www.nytimes.com/2011/04/24/magazine/mag-24Obama-t.html",
+         "guid" : "http://www.nytimes.com/2011/04/24/magazine/mag-24Obama-t.html",
+         "description" : "In 1967, Stanley Ann Dunham took her 6-year-old son, Barry, on an adventure, transplanting him to Indonesia. She did not know just how much it would change her life, and his.",
+         "byline" : "By JANNY SCOTT",
+         "pubdate" : "Wed, 20 Apr 2011 21:37:32 GMT",
+         "media" : [
+            {
+               "type" : "image",
+               "caption" : "Barack Obama with his mother in Hawaii.",
+               "credit" : "Friends and family of Stanley Ann Dunham",
+               "media-metadata" : [
+                  {
+                     "url" : "http://graphics8.nytimes.com/images/2011/04/24/magazine/24Cover/24Cover-thumbStandard.jpg",
+                     "height" : "75",
+                     "width" : "75"
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}
