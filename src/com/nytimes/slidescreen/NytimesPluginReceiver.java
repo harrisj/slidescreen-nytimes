@@ -40,7 +40,7 @@ public class NytimesPluginReceiver extends PluginReceiver {
         Intent[] intents = new Intent[2];
         
         Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.setComponent(new ComponentName("com.nytimes", "com.nytimes.android"));
+        intent.setComponent(new ComponentName("com.nytimes.android", "com.nytimes.android.activity.MainActivity"));
         intent.addCategory("android.intent.category.LAUNCHER");
         intents[0] = intent;
         
@@ -52,11 +52,14 @@ public class NytimesPluginReceiver extends PluginReceiver {
     @Override
     public Intent[] getLongpressShortcutIntents() {
         // Note this is the same as the short press intents right now, will hopefully replace later
-        Intent[] intents = new Intent[1];
-//        Intent groupIntent = new Intent(Intent.ACTION_MAIN);
-//        groupIntent.setComponent(new ComponentName("com.nytimes"));
-//        intents[0] = groupIntent;
-        intents[0] = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.nytimes.com"));
+        Intent[] intents = new Intent[2];
+
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setComponent(new ComponentName("com.nytimes.android", "com.nytimes.android.activity.MainActivity"));
+        intent.addCategory("android.intent.category.LAUNCHER");
+        intents[0] = intent;
+        
+        intents[1] = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.nytimes.com"));
         return intents;
     }
 
