@@ -189,9 +189,9 @@ public class NytimesContentProvider extends ContentProvider {
                 } else if (FIELD_PRIORITY.equals(field)) {
                     builder.add(published.getTime());
                 } else if (FIELD_INTENT.equals(field)) {
-                    Intent intents[] = new Intent[2];
-                    intents[0] = intent;
-                    intents[1] = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getString("link")));
+                    Intent intents[] = new Intent[1];
+                    //FIXME: DETAIL intents[0] = intent;
+                    intents[0] = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getString("link")));
                     builder.add(PluginUtils.encodeIntents(intents));
                 } else {
                     builder.add("");
